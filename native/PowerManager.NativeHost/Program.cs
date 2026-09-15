@@ -20,7 +20,18 @@ public class Program
         using var brightnessService = new BrightnessService(protocolServer);
         var displayPowerService = new DisplayPowerService();
         using var processWatcherService = new ProcessWatcherService(protocolServer);
-        using var notificationWindow = new NotificationWindow(protocolServer, powerSchemeService, batteryService, brightnessService);
+        using var notificationWindow = new NotificationWindow(
+            protocolServer, powerSchemeService, batteryService, brightnessService, displayPowerService);
+
+        // Run crash recovery for stale VIDEOIDLE sentinel before accepting commands
+        try
+        {
+            displayPowerService.RecoverStaleDisplayTimeoutAsync().GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            ProtocolServer.Log($"Startup recovery failed: {ex.Message}");
+        }
 
         ProtocolServer.Log("PowerManager.NativeHost initialized successfully.");
 
@@ -54,6 +65,16 @@ public class Program
             {
                 ProtocolServer.Log($"Error processing request: {ex.Message}");
             }
+        }
+
+        // Shutdown: cancel any active display-off session
+        try
+        {
+            displayPowerService.CancelDisplayOffSessionAsync().GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            ProtocolServer.Log($"Shutdown display-off cleanup failed: {ex.Message}");
         }
 
         ProtocolServer.Log("PowerManager.NativeHost shutting down cleanly.");
@@ -146,8 +167,48 @@ public class Program
                 break;
 
             case "display.turnOff":
-                var turnedOff = displayPowerService.TurnOffDisplay();
-                protocolServer.SendSuccess(id, new { success = turnedOff });
+                // Run async on threadpool to avoid blocking the stdin read loop
+                Task.Run(async () =>
+                {
+                    try
+                    {
+                        var result = await displayPowerService.TurnOffDisplayKeepingSystemAwakeAsync();
+                        protocolServer.SendSuccess(id, new
+                        {
+                            success = result.IsSuccess,
+                            status = result.Status.ToString(),
+                            message = result.Message,
+                            win32ErrorCode = result.Win32ErrorCode
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        protocolServer.SendError(id, "DISPLAY_OFF_FAILED", ex.Message);
+                    }
+                });
+                break;
+
+            case "display.cancelOff":
+                Task.Run(async () =>
+                {
+                    try
+                    {
+                        await displayPowerService.CancelDisplayOffSessionAsync();
+                        protocolServer.SendSuccess(id, new { success = true });
+                    }
+                    catch (Exception ex)
+                    {
+                        protocolServer.SendError(id, "CANCEL_FAILED", ex.Message);
+                    }
+                });
+                break;
+
+            case "display.getOffState":
+                protocolServer.SendSuccess(id, new
+                {
+                    isActive = displayPowerService.IsDisplayOffSessionActive,
+                    state = displayPowerService.SessionState.ToString()
+                });
                 break;
 
             case "process.setWatchTargets":
@@ -180,3 +241,4 @@ public class Program
         }
     }
 }
+

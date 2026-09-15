@@ -10,6 +10,7 @@ public class NotificationWindow : IDisposable
     private readonly IPowerSchemeService _powerSchemeService;
     private readonly IBatteryService _batteryService;
     private readonly IBrightnessService _brightnessService;
+    private readonly IDisplayPowerService? _displayPowerService;
     private readonly Thread _messageLoopThread;
     private IntPtr _hwnd = IntPtr.Zero;
     private readonly List<IntPtr> _registeredNotifications = [];
@@ -20,12 +21,14 @@ public class NotificationWindow : IDisposable
         ProtocolServer protocolServer,
         IPowerSchemeService powerSchemeService,
         IBatteryService batteryService,
-        IBrightnessService brightnessService)
+        IBrightnessService brightnessService,
+        IDisplayPowerService? displayPowerService = null)
     {
         _protocolServer = protocolServer;
         _powerSchemeService = powerSchemeService;
         _batteryService = batteryService;
         _brightnessService = brightnessService;
+        _displayPowerService = displayPowerService;
 
         _messageLoopThread = new Thread(RunMessageLoop)
         {
@@ -149,6 +152,9 @@ public class NotificationWindow : IDisposable
                             _ => "unknown"
                         };
                         _protocolServer.SendEvent("display.stateChanged", new { state = stateStr });
+
+                        // Forward to DisplayPowerService for state machine processing
+                        _displayPowerService?.OnDisplayStateChanged(displayStateVal);
                     }
                 }
                 else if (setting.PowerSetting == PowrprofInterop.GUID_LIDSWITCH_STATE_CHANGE)

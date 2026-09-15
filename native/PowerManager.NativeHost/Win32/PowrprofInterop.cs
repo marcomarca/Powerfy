@@ -5,13 +5,19 @@ namespace PowerManager.NativeHost.Win32;
 public static class PowrprofInterop
 {
     public const uint ACCESS_SCHEME = 16;
+    public const uint ERROR_SUCCESS = 0;
 
+    // Power notification GUIDs
     public static readonly Guid GUID_ACTIVE_POWERSCHEME = new("310f5671-4b59-4e0c-b6d7-03076f83800e");
     public static readonly Guid GUID_ACDC_POWER_SOURCE = new("5d3e4a32-e539-4f2b-b0bb-24e9504c97c3");
     public static readonly Guid GUID_BATTERY_PERCENTAGE_REMAINING = new("a7ad8041-b45a-4cae-9f93-b78c7553631d");
-    public static readonly Guid GUID_CONSOLE_DISPLAY_STATE = new("6fe69556-704a-47a0-8f24-c1019c6160c5");
+    public static readonly Guid GUID_CONSOLE_DISPLAY_STATE = new("6fe69556-704a-47a0-8f24-c28d936fda47");
     public static readonly Guid GUID_LIDSWITCH_STATE_CHANGE = new("ba3e0f4d-b817-4095-a2d1-23d73b223e16");
     public static readonly Guid GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS = new("adde3451-b00f-4e78-8020-e20d9b09c87a");
+
+    // VIDEOIDLE subgroup and setting GUIDs
+    public static readonly Guid GUID_VIDEO_SUBGROUP = new("7516b95f-f776-4464-8c53-06167f40cc99");
+    public static readonly Guid GUID_VIDEO_IDLE_TIMEOUT = new("3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e");
 
     [DllImport("Powrprof.dll", SetLastError = true)]
     public static extern uint PowerEnumerate(
@@ -41,6 +47,42 @@ public static class PowrprofInterop
     public static extern uint PowerSetActiveScheme(
         IntPtr userRootPowerKey,
         ref Guid schemeGuid);
+
+    // --- VIDEOIDLE read/write APIs ---
+
+    [DllImport("Powrprof.dll", SetLastError = true)]
+    public static extern uint PowerReadACValueIndex(
+        IntPtr rootPowerKey,
+        ref Guid schemeGuid,
+        ref Guid subGroupOfPowerSettingGuid,
+        ref Guid powerSettingGuid,
+        out uint acValueIndex);
+
+    [DllImport("Powrprof.dll", SetLastError = true)]
+    public static extern uint PowerReadDCValueIndex(
+        IntPtr rootPowerKey,
+        ref Guid schemeGuid,
+        ref Guid subGroupOfPowerSettingGuid,
+        ref Guid powerSettingGuid,
+        out uint dcValueIndex);
+
+    [DllImport("Powrprof.dll", SetLastError = true)]
+    public static extern uint PowerWriteACValueIndex(
+        IntPtr rootPowerKey,
+        ref Guid schemeGuid,
+        ref Guid subGroupOfPowerSettingGuid,
+        ref Guid powerSettingGuid,
+        uint acValueIndex);
+
+    [DllImport("Powrprof.dll", SetLastError = true)]
+    public static extern uint PowerWriteDCValueIndex(
+        IntPtr rootPowerKey,
+        ref Guid schemeGuid,
+        ref Guid subGroupOfPowerSettingGuid,
+        ref Guid powerSettingGuid,
+        uint dcValueIndex);
+
+    // --- Power setting notifications ---
 
     [DllImport("User32.dll", SetLastError = true)]
     public static extern IntPtr RegisterPowerSettingNotification(

@@ -324,8 +324,20 @@ export class NativeHostClient extends EventEmitter {
     });
   }
 
-  public turnOffDisplay(): Promise<{ success: boolean }> {
-    return this.sendRequest<{ success: boolean }>("display.turnOff");
+  public turnOffDisplay(): Promise<{ success: boolean; status?: string; message?: string }> {
+    return this.sendRequest<{ success: boolean; status?: string; message?: string }>(
+      "display.turnOff",
+      undefined,
+      15000,
+    );
+  }
+
+  public cancelDisplayOff(): Promise<{ success: boolean }> {
+    return this.sendRequest<{ success: boolean }>("display.cancelOff");
+  }
+
+  public getDisplayOffState(): Promise<{ isActive: boolean; state: string }> {
+    return this.sendRequest<{ isActive: boolean; state: string }>("display.getOffState");
   }
 
   public setWatchTargets(targets: ProcessTarget[]): Promise<{ targetsCount: number }> {
