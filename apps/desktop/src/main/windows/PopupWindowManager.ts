@@ -50,6 +50,8 @@ export class PopupWindowManager {
     const preloadPath = path.join(app.getAppPath(), "dist-electron/preload/index.js");
     const htmlPath = path.join(app.getAppPath(), "dist-renderer/index.html");
 
+    const appIconPath = path.join(app.getAppPath(), "resources/icons/powerfy_app_icon.ico");
+
     this.window = new BrowserWindow({
       width: 380,
       height: 480,
@@ -59,6 +61,7 @@ export class PopupWindowManager {
       skipTaskbar: true,
       transparent: true,
       alwaysOnTop: true,
+      icon: appIconPath,
       webPreferences: {
         preload: preloadPath,
         contextIsolation: true,

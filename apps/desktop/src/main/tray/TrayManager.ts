@@ -33,7 +33,7 @@ export class TrayManager extends EventEmitter {
     });
 
     this.tray = new Tray(initialIcon);
-    this.tray.setToolTip("PowerManager");
+    this.tray.setToolTip("Powerfy");
 
     this.tray.on("click", (_event, bounds) => {
       this.emit("togglePopup", bounds);
@@ -65,7 +65,7 @@ export class TrayManager extends EventEmitter {
     if (!this.tray) return;
 
     const settings = this.settingsStore.getSettings();
-    let schemeColor = "#3b82f6";
+    let schemeColor = "#1ed8f5";
     if (this.currentSchemeId) {
       schemeColor =
         settings.tray.schemeColors[this.currentSchemeId] ||
@@ -83,7 +83,7 @@ export class TrayManager extends EventEmitter {
 
     this.tray.setImage(icon);
 
-    const tooltip = `PowerManager - ${this.batteryPercent !== null ? `${this.batteryPercent}% · ` : ""}${this.isOnAc ? "Conectado" : "Batería"}`;
+    const tooltip = `Powerfy - ${this.batteryPercent !== null ? `${this.batteryPercent}% · ` : ""}${this.isOnAc ? "Conectado" : "Batería"}`;
     this.tray.setToolTip(tooltip);
   }
 

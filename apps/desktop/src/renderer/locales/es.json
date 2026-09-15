@@ -1,5 +1,5 @@
 {
-  "appTitle": "PowerManager",
+  "appTitle": "Powerfy",
   "battery": {
     "title": "BATERÍA",
     "charging": "Cargando",
@@ -26,7 +26,7 @@
     "turnOffDesc": "Apaga físicamente la salida del monitor sin suspender el equipo"
   },
   "settings": {
-    "title": "Ajustes de PowerManager",
+    "title": "Ajustes de Powerfy",
     "tabs": {
       "general": "General",
       "appearance": "Apariencia",
@@ -128,7 +128,7 @@
       "processStopped": "Proceso finaliza",
       "suspend": "Equipo entra en suspensión",
       "resume": "Equipo se reactiva (Resume)",
-      "appStarted": "PowerManager se inicia"
+      "appStarted": "Powerfy se inicia"
     },
     "conditionsList": {
       "powerSource": "Fuente de alimentación",

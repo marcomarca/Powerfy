@@ -15,6 +15,7 @@
     }
   ],
   "win": {
+    "icon": "build/icon.ico",
     "target": [
       {
         "target": "nsis",
@@ -37,6 +38,8 @@
     "createDesktopShortcut": true,
     "createStartMenuShortcut": true,
     "shortcutName": "Powerfy",
+    "installerIcon": "build/installerIcon.ico",
+    "uninstallerIcon": "build/uninstallerIcon.ico",
     "artifactName": "${productName}-Setup-${version}.${ext}"
   },
   "portable": {

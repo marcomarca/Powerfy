@@ -49,6 +49,8 @@ export class OsdWindowManager {
     const preloadPath = path.join(app.getAppPath(), "dist-electron/preload/index.js");
     const htmlPath = path.join(app.getAppPath(), "dist-renderer/index.html");
 
+    const appIconPath = path.join(app.getAppPath(), "resources/icons/powerfy_app_icon.ico");
+
     this.window = new BrowserWindow({
       width: 320,
       height: 90,
@@ -59,6 +61,7 @@ export class OsdWindowManager {
       skipTaskbar: true,
       resizable: false,
       show: false,
+      icon: appIconPath,
       webPreferences: {
         preload: preloadPath,
         contextIsolation: true,

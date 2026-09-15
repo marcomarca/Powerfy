@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import logoSymbol from "../../assets/powerfy_app_icon_128.png";
 import { useI18n } from "../../hooks/useI18n";
 
 export function AboutTab() {
@@ -29,16 +30,52 @@ export function AboutTab() {
       {/* Product Banner */}
       <div
         className="card"
-        style={{ display: "flex", alignItems: "center", gap: "var(--space-4)" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "var(--space-4)",
+          background:
+            "linear-gradient(135deg, rgba(6, 27, 70, 0.9) 0%, rgba(14, 86, 194, 0.25) 100%)",
+          border: "1px solid var(--border-color)",
+          padding: "var(--space-4)",
+        }}
       >
-        <div style={{ fontSize: "36px" }}>⚡</div>
+        <img
+          src={logoSymbol}
+          alt="Powerfy Master Logo"
+          style={{
+            width: "64px",
+            height: "64px",
+            objectFit: "contain",
+            filter: "drop-shadow(0 0 12px rgba(30, 216, 245, 0.4))",
+          }}
+        />
         <div>
-          <h2 style={{ fontSize: "16px", fontWeight: 700 }}>PowerManager</h2>
-          <div style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
-            Gestor nativo de esquemas de energía y automatizaciones para Windows 11
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+            <h2
+              style={{ fontSize: "18px", fontWeight: 800, color: "var(--brand-cyan)", margin: 0 }}
+            >
+              Powerfy
+            </h2>
+            <span
+              style={{
+                fontSize: "11px",
+                fontWeight: 600,
+                padding: "2px 8px",
+                borderRadius: "var(--radius-full)",
+                background: "rgba(30, 216, 245, 0.15)",
+                color: "var(--brand-cyan)",
+                border: "1px solid rgba(30, 216, 245, 0.3)",
+              }}
+            >
+              v1.0.0
+            </span>
+          </div>
+          <div style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "4px" }}>
+            Gestor nativo de esquemas de energía, automatizaciones y brillo para Windows 11
           </div>
           <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-            v1.0.0 · Clean-Room Implementation · Windows 11 x64
+            Rust Native Host · Electron GUI · Clean-Room Implementation · MIT License
           </div>
         </div>
       </div>

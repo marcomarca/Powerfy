@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import logoIcon from "../assets/powerfy_app_icon_64.png";
 import { useI18n } from "../hooks/useI18n";
 import { usePowerState } from "../hooks/usePowerState";
 import { AboutTab } from "./tabs/AboutTab";
@@ -74,15 +75,20 @@ export function SettingsApp({ initialTab = "general" }: Props) {
         <div
           style={{
             padding: "var(--space-2)",
-            fontSize: "14px",
+            fontSize: "15px",
             fontWeight: 700,
             display: "flex",
             alignItems: "center",
             gap: "var(--space-2)",
+            color: "var(--brand-cyan)",
           }}
         >
-          <span>⚡</span>
-          <span>PowerManager</span>
+          <img
+            src={logoIcon}
+            alt="Powerfy Logo"
+            style={{ width: "24px", height: "24px", objectFit: "contain" }}
+          />
+          <span>Powerfy</span>
         </div>
 
         <div

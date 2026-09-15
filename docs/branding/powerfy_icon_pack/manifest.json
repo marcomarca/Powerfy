@@ -1,0 +1,91 @@
+{
+  "project": "POWERFY icon pack",
+  "files": {
+    "master_symbol": [
+      "powerfy_master_symbol_1024.png",
+      "powerfy_master_symbol_1254.png",
+      "powerfy_master_symbol_128.png",
+      "powerfy_master_symbol_256.png",
+      "powerfy_master_symbol_512.png",
+      "powerfy_master_symbol_64.png"
+    ],
+    "app_icon_windows": [
+      "powerfy_app_icon.ico",
+      "powerfy_app_icon_1024.png",
+      "powerfy_app_icon_1254.png",
+      "powerfy_app_icon_128.png",
+      "powerfy_app_icon_16.png",
+      "powerfy_app_icon_24.png",
+      "powerfy_app_icon_256.png",
+      "powerfy_app_icon_32.png",
+      "powerfy_app_icon_48.png",
+      "powerfy_app_icon_512.png",
+      "powerfy_app_icon_64.png"
+    ],
+    "tray_icon_windows": [
+      "powerfy_tray_icon.ico",
+      "powerfy_tray_icon_1254.png",
+      "powerfy_tray_icon_128.png",
+      "powerfy_tray_icon_16.png",
+      "powerfy_tray_icon_20.png",
+      "powerfy_tray_icon_24.png",
+      "powerfy_tray_icon_256.png",
+      "powerfy_tray_icon_32.png",
+      "powerfy_tray_icon_40.png",
+      "powerfy_tray_icon_48.png",
+      "powerfy_tray_icon_64.png"
+    ],
+    "browser_favicon_nav": [
+      "favicon.ico",
+      "powerfy_browser_icon_1254.png",
+      "powerfy_browser_icon_128.png",
+      "powerfy_browser_icon_16.png",
+      "powerfy_browser_icon_256.png",
+      "powerfy_browser_icon_32.png",
+      "powerfy_browser_icon_48.png",
+      "powerfy_browser_icon_512.png",
+      "powerfy_browser_icon_64.png"
+    ],
+    "docs": ["palette.json", "palette.md", "prompts.md", "style_guide.md"],
+    "reference": ["powerfy_reference_board.png"]
+  },
+  "palette": {
+    "background_navy": {
+      "hex": "#061B46",
+      "usage": "Fondo base para app icon y favicon/browser icon."
+    },
+    "background_blue_glow": {
+      "hex": "#184E9E",
+      "usage": "Resaltes, borde luminoso y degradados secundarios."
+    },
+    "armor_white": {
+      "hex": "#F3F5F8",
+      "usage": "Superficie principal del casco."
+    },
+    "armor_light_gray": {
+      "hex": "#C9D1DD",
+      "usage": "Planos secundarios y sombreado suave del casco."
+    },
+    "line_dark_navy": {
+      "hex": "#0B1730",
+      "usage": "Separaciones, contornos y estructura interna."
+    },
+    "visor_cyan": {
+      "hex": "#1ED8F5",
+      "usage": "Visor principal brillante."
+    },
+    "visor_blue_shadow": {
+      "hex": "#0E56C2",
+      "usage": "Sombras y transiciones del visor."
+    },
+    "crest_red": {
+      "hex": "#FF2636",
+      "usage": "Cresta central y punto focal."
+    },
+    "crest_red_shadow": {
+      "hex": "#C80D1E",
+      "usage": "Sombras de la cresta."
+    }
+  },
+  "aspect_ratio": "1:1"
+}

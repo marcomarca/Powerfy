@@ -1,0 +1,38 @@
+{
+  "background_navy": {
+    "hex": "#061B46",
+    "usage": "Fondo base para app icon y favicon/browser icon."
+  },
+  "background_blue_glow": {
+    "hex": "#184E9E",
+    "usage": "Resaltes, borde luminoso y degradados secundarios."
+  },
+  "armor_white": {
+    "hex": "#F3F5F8",
+    "usage": "Superficie principal del casco."
+  },
+  "armor_light_gray": {
+    "hex": "#C9D1DD",
+    "usage": "Planos secundarios y sombreado suave del casco."
+  },
+  "line_dark_navy": {
+    "hex": "#0B1730",
+    "usage": "Separaciones, contornos y estructura interna."
+  },
+  "visor_cyan": {
+    "hex": "#1ED8F5",
+    "usage": "Visor principal brillante."
+  },
+  "visor_blue_shadow": {
+    "hex": "#0E56C2",
+    "usage": "Sombras y transiciones del visor."
+  },
+  "crest_red": {
+    "hex": "#FF2636",
+    "usage": "Cresta central y punto focal."
+  },
+  "crest_red_shadow": {
+    "hex": "#C80D1E",
+    "usage": "Sombras de la cresta."
+  }
+}

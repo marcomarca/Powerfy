@@ -1,5 +1,4 @@
 const { spawnSync } = require("node:child_process");
-const fs = require("node:fs");
 const path = require("node:path");
 
 function findDotnet() {
@@ -25,7 +24,10 @@ function findDotnet() {
 }
 
 const dotnet = findDotnet();
-const projectPath = path.resolve(__dirname, "../native/PowerManager.NativeHost/PowerManager.NativeHost.csproj");
+const projectPath = path.resolve(
+  __dirname,
+  "../native/PowerManager.NativeHost/PowerManager.NativeHost.csproj",
+);
 const outputDir = path.resolve(__dirname, "../apps/desktop/resources/native");
 
 console.log(`[build-native] Using dotnet: ${dotnet}`);

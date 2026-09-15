@@ -1,5 +1,5 @@
 {
-  "appTitle": "PowerManager",
+  "appTitle": "Powerfy",
   "battery": {
     "title": "BATTERY",
     "charging": "Charging",
@@ -26,7 +26,7 @@
     "turnOffDesc": "Physically turns off display output without sleeping the PC"
   },
   "settings": {
-    "title": "PowerManager Settings",
+    "title": "Powerfy Settings",
     "tabs": {
       "general": "General",
       "appearance": "Appearance",
@@ -47,8 +47,8 @@
     },
     "appearance": {
       "iconStyle": "Tray Icon Style",
-      "iconOutline": "Outline",
-      "iconSolid": "Solid",
+      "iconOutline": "Outline (Minimal)",
+      "iconSolid": "Solid (Filled)",
       "showPercentage": "Show battery percentage in icon",
       "schemeColors": "Power Scheme Accent Colors"
     },
@@ -93,7 +93,7 @@
       "checkNow": "Check for updates now",
       "autoCheck": "Check automatically on startup",
       "autoDownload": "Download updates automatically",
-      "upToDate": "PowerManager is up to date."
+      "upToDate": "Powerfy is up to date."
     },
     "aboutTab": {
       "version": "Version",
@@ -128,7 +128,7 @@
       "processStopped": "Process stops",
       "suspend": "System enters sleep",
       "resume": "System resumes",
-      "appStarted": "PowerManager starts"
+      "appStarted": "Powerfy starts"
     },
     "conditionsList": {
       "powerSource": "Power Source",

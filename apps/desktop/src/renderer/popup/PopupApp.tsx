@@ -1,5 +1,6 @@
 import { getStableColorForGuid } from "@power-manager/shared";
 import { useEffect, useState } from "react";
+import logoIcon from "../assets/powerfy_app_icon_64.png";
 import { useI18n } from "../hooks/useI18n";
 import { usePowerState } from "../hooks/usePowerState";
 
@@ -102,7 +103,7 @@ export function PopupApp() {
         boxShadow: "var(--shadow-lg)",
       }}
     >
-      {/* Header: Battery & Settings button */}
+      {/* Header: Powerfy Brand & Battery info & Settings */}
       <div
         style={{
           display: "flex",
@@ -113,14 +114,22 @@ export function PopupApp() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
-          <span style={{ fontSize: "16px" }}>
-            {hasBattery ? (battery.isCharging ? "⚡" : "🔋") : "🔌"}
-          </span>
+          <img
+            src={logoIcon}
+            alt="Powerfy Logo"
+            style={{ width: "24px", height: "24px", objectFit: "contain" }}
+          />
           <div>
-            <div style={{ fontWeight: 600, fontSize: "14px" }}>
-              {hasBattery && battery.percentage !== null
-                ? `${battery.percentage}%`
-                : t("battery.noBattery")}
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <span style={{ fontWeight: 700, fontSize: "14px", color: "var(--brand-cyan)" }}>
+                Powerfy
+              </span>
+              <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>•</span>
+              <span style={{ fontWeight: 600, fontSize: "13px" }}>
+                {hasBattery && battery.percentage !== null
+                  ? `${battery.percentage}%`
+                  : t("battery.connected")}
+              </span>
             </div>
             <div style={{ fontSize: "11px", color: "var(--text-secondary)" }}>
               {hasBattery

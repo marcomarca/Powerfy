@@ -16,12 +16,15 @@ export class SettingsWindowManager {
     const preloadPath = path.join(app.getAppPath(), "dist-electron/preload/index.js");
     const htmlPath = path.join(app.getAppPath(), "dist-renderer/index.html");
 
+    const appIconPath = path.join(app.getAppPath(), "resources/icons/powerfy_app_icon.ico");
+
     this.window = new BrowserWindow({
       width: 900,
       height: 650,
       minWidth: 780,
       minHeight: 520,
-      title: "PowerManager — Ajustes",
+      title: "Powerfy — Ajustes",
+      icon: appIconPath,
       autoHideMenuBar: true,
       webPreferences: {
         preload: preloadPath,
