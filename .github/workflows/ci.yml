@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install JS Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Lint and Format Check
+        run: bun run lint
+
+      - name: TypeScript Type Check
+        run: bun run typecheck
+
+      - name: Run JS Unit Tests
+        run: bun test
+
+      - name: Restore .NET Solution
+        run: dotnet restore PowerManager.slnx
+
+      - name: Run .NET Tests
+        run: dotnet test PowerManager.slnx --no-restore
+
+      - name: Build NativeHost
+        run: dotnet publish native/PowerManager.NativeHost/PowerManager.NativeHost.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true -o apps/desktop/resources/native
+
+      - name: Build Electron App
+        run: bun run build

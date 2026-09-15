@@ -1,0 +1,50 @@
+{
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  "appId": "com.marcomarca.powerfy",
+  "productName": "Powerfy",
+  "directories": {
+    "output": "dist-package",
+    "buildResources": "build"
+  },
+  "files": ["dist-electron/**/*", "dist-renderer/**/*", "package.json"],
+  "extraResources": [
+    {
+      "from": "resources/native",
+      "to": "native",
+      "filter": ["**/*"]
+    }
+  ],
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      },
+      {
+        "target": "portable",
+        "arch": ["x64"]
+      },
+      {
+        "target": "zip",
+        "arch": ["x64"]
+      }
+    ],
+    "requestedExecutionLevel": "asInvoker"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Powerfy",
+    "artifactName": "${productName}-Setup-${version}.${ext}"
+  },
+  "portable": {
+    "artifactName": "${productName}-Portable-${version}.${ext}"
+  },
+  "publish": {
+    "provider": "github",
+    "owner": "marcomarca",
+    "repo": "Powerfy"
+  }
+}

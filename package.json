@@ -1,0 +1,23 @@
+{
+  "name": "power-manager-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "start": "bun run build && bunx electron apps/desktop",
+    "dev": "bun run build && bunx electron apps/desktop",
+    "build": "bun run build:native && bun --filter \"*\" build",
+    "test": "bun test",
+    "test:native": "C:/Users/Rescate/.dotnet/dotnet.exe test PowerManager.slnx",
+    "build:native": "C:/Users/Rescate/.dotnet/dotnet.exe publish native/PowerManager.NativeHost/PowerManager.NativeHost.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true -o apps/desktop/resources/native",
+    "lint": "bunx @biomejs/biome check .",
+    "format": "bunx @biomejs/biome format --write .",
+    "typecheck": "bun --filter \"*\" typecheck",
+    "package": "bun run build && bun --filter desktop package"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.13.9",
+    "typescript": "^5.8.2"
+  }
+}

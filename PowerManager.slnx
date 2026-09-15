@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/native/">
+    <Project Path="native/PowerManager.NativeHost.Tests/PowerManager.NativeHost.Tests.csproj" />
+    <Project Path="native/PowerManager.NativeHost/PowerManager.NativeHost.csproj" />
+  </Folder>
+</Solution>

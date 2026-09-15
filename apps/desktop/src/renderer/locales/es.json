@@ -1,0 +1,161 @@
+{
+  "appTitle": "PowerManager",
+  "battery": {
+    "title": "BATERÍA",
+    "charging": "Cargando",
+    "onBattery": "En batería",
+    "connected": "Conectado",
+    "fullyCharged": "Completamente cargada",
+    "noBattery": "Sin batería",
+    "remaining": "restante"
+  },
+  "power": {
+    "title": "PLAN DE ENERGÍA",
+    "active": "Activo",
+    "switching": "Cambiando...",
+    "errorSwitching": "No se pudo cambiar el plan",
+    "openPowerOptions": "Opciones de energía de Windows"
+  },
+  "brightness": {
+    "title": "BRILLO",
+    "noDisplays": "No se detectó pantalla interna compatible",
+    "fixedActive": "Brillo fijo activado"
+  },
+  "display": {
+    "turnOff": "Apagar pantalla",
+    "turnOffDesc": "Apaga físicamente la salida del monitor sin suspender el equipo"
+  },
+  "settings": {
+    "title": "Ajustes de PowerManager",
+    "tabs": {
+      "general": "General",
+      "appearance": "Apariencia",
+      "energy": "Energía",
+      "brightness": "Brillo",
+      "notifications": "Notificaciones",
+      "automations": "Automatizaciones",
+      "updates": "Actualizaciones",
+      "about": "Acerca de"
+    },
+    "general": {
+      "language": "Idioma",
+      "startWithWindows": "Iniciar automáticamente con Windows",
+      "theme": "Tema de la aplicación",
+      "themeSystem": "Sistema",
+      "themeLight": "Claro",
+      "themeDark": "Oscuro"
+    },
+    "appearance": {
+      "iconStyle": "Estilo del icono en bandeja",
+      "iconOutline": "Línea (Outline)",
+      "iconSolid": "Relleno (Solid)",
+      "showPercentage": "Mostrar porcentaje de batería en icono",
+      "schemeColors": "Colores de planes de energía"
+    },
+    "energy": {
+      "hotkey": "Atajo de teclado global (recorrer planes)",
+      "manualOverride": "Comportamiento tras cambio manual",
+      "overrideUntilAutomationChange": "Hasta que cambie el estado de alguna regla (Recomendado)",
+      "override15m": "Durante 15 minutos",
+      "override30m": "Durante 30 minutos",
+      "override60m": "Durante 1 hora",
+      "overrideUntilRestart": "Hasta reiniciar la aplicación",
+      "overrideUntilCancelled": "Hasta cancelar manualmente",
+      "overrideDisabled": "Desactivado (las reglas re-aplican de inmediato)"
+    },
+    "brightnessTab": {
+      "primaryDisplay": "Pantalla principal para control",
+      "fixedBrightness": "Mantener brillo fijo (Fixed Brightness)",
+      "fixedBrightnessDesc": "Evita que Windows cambie el brillo al desconectar el cargador o cambiar de plan",
+      "fixedValue": "Nivel de brillo fijo"
+    },
+    "notificationsTab": {
+      "osdEnabled": "Mostrar notificación en pantalla (OSD) al cambiar plan",
+      "showIcon": "Mostrar icono en OSD",
+      "showSchemeName": "Mostrar nombre del plan en OSD",
+      "duration": "Duración de OSD (segundos)",
+      "opacity": "Opacidad de OSD"
+    },
+    "automationsTab": {
+      "masterToggle": "Motor de automatizaciones activo",
+      "createRule": "Nueva regla",
+      "noRules": "No hay automatizaciones configuradas.",
+      "priority": "Prioridad",
+      "exclusive": "Exclusiva (bloquea prioridades menores)",
+      "enabled": "Habilitada",
+      "edit": "Editar",
+      "duplicate": "Duplicar",
+      "delete": "Eliminar",
+      "confirmDelete": "¿Deseas eliminar esta regla?"
+    },
+    "updatesTab": {
+      "currentVersion": "Versión actual",
+      "checkNow": "Comprobar actualizaciones ahora",
+      "autoCheck": "Comprobar automáticamente al iniciar",
+      "autoDownload": "Descargar actualizaciones automáticamente",
+      "upToDate": "La aplicación está actualizada."
+    },
+    "aboutTab": {
+      "version": "Versión",
+      "diagnostic": "Diagnóstico del sistema",
+      "copyDiagnostic": "Copiar información de diagnóstico",
+      "copied": "¡Copiado!",
+      "openLogs": "Abrir carpeta de registros (Logs)"
+    }
+  },
+  "ruleEditor": {
+    "titleCreate": "Crear Automatización",
+    "titleEdit": "Editar Automatización",
+    "name": "Nombre de la regla",
+    "priority": "Nivel de prioridad (0-100)",
+    "priorityHint": "Las reglas con mayor prioridad se aplican sobre las de menor prioridad",
+    "exclusive": "Modo exclusivo (ignora reglas de menor prioridad mientras esté activa)",
+    "when": "CUANDO (Activadores - OR)",
+    "conditions": "MIENTRAS (Condiciones - AND)",
+    "actions": "ENTONCES (Acciones)",
+    "addTrigger": "Añadir activador",
+    "addCondition": "Añadir condición",
+    "addAction": "Añadir acción",
+    "triggers": {
+      "processRunning": "Proceso ejecutándose",
+      "timeWindow": "Horario / Días de semana",
+      "acConnected": "Conectado a la corriente (AC)",
+      "onBattery": "En batería",
+      "batteryBelow": "Batería por debajo o igual a",
+      "batteryAbove": "Batería por encima o igual a",
+      "activeSchemeIs": "Plan activo es",
+      "processStarted": "Proceso se inicia",
+      "processStopped": "Proceso finaliza",
+      "suspend": "Equipo entra en suspensión",
+      "resume": "Equipo se reactiva (Resume)",
+      "appStarted": "PowerManager se inicia"
+    },
+    "conditionsList": {
+      "powerSource": "Fuente de alimentación",
+      "batteryPercentage": "Nivel de batería",
+      "activeScheme": "Plan de energía actual",
+      "processRunning": "Proceso en ejecución",
+      "timeWindow": "Ventana de horario"
+    },
+    "actionsList": {
+      "setPowerScheme": "Activar plan de energía",
+      "setBrightness": "Ajustar brillo de pantalla",
+      "turnOffDisplay": "Apagar pantalla",
+      "showOsd": "Mostrar OSD",
+      "showNotification": "Mostrar notificación del sistema",
+      "launchProgram": "Ejecutar programa"
+    },
+    "days": {
+      "1": "Lun",
+      "2": "Mar",
+      "3": "Mié",
+      "4": "Jue",
+      "5": "Vie",
+      "6": "Sáb",
+      "7": "Dom"
+    },
+    "save": "Guardar regla",
+    "cancel": "Cancelar",
+    "browse": "Examinar..."
+  }
+}

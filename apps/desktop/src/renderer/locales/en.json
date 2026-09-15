@@ -1,0 +1,161 @@
+{
+  "appTitle": "PowerManager",
+  "battery": {
+    "title": "BATTERY",
+    "charging": "Charging",
+    "onBattery": "On battery",
+    "connected": "Plugged in",
+    "fullyCharged": "Fully charged",
+    "noBattery": "No battery",
+    "remaining": "remaining"
+  },
+  "power": {
+    "title": "POWER SCHEME",
+    "active": "Active",
+    "switching": "Switching...",
+    "errorSwitching": "Could not switch scheme",
+    "openPowerOptions": "Windows Power Options"
+  },
+  "brightness": {
+    "title": "BRIGHTNESS",
+    "noDisplays": "No compatible internal display detected",
+    "fixedActive": "Fixed brightness active"
+  },
+  "display": {
+    "turnOff": "Turn off display",
+    "turnOffDesc": "Physically turns off display output without sleeping the PC"
+  },
+  "settings": {
+    "title": "PowerManager Settings",
+    "tabs": {
+      "general": "General",
+      "appearance": "Appearance",
+      "energy": "Energy",
+      "brightness": "Brightness",
+      "notifications": "Notifications",
+      "automations": "Automations",
+      "updates": "Updates",
+      "about": "About"
+    },
+    "general": {
+      "language": "Language",
+      "startWithWindows": "Start automatically with Windows",
+      "theme": "App Theme",
+      "themeSystem": "System",
+      "themeLight": "Light",
+      "themeDark": "Dark"
+    },
+    "appearance": {
+      "iconStyle": "Tray Icon Style",
+      "iconOutline": "Outline",
+      "iconSolid": "Solid",
+      "showPercentage": "Show battery percentage in icon",
+      "schemeColors": "Power Scheme Accent Colors"
+    },
+    "energy": {
+      "hotkey": "Global Hotkey (cycle power schemes)",
+      "manualOverride": "Manual Override Policy",
+      "overrideUntilAutomationChange": "Until automation state changes (Recommended)",
+      "override15m": "For 15 minutes",
+      "override30m": "For 30 minutes",
+      "override60m": "For 1 hour",
+      "overrideUntilRestart": "Until app restarts",
+      "overrideUntilCancelled": "Until manually cancelled",
+      "overrideDisabled": "Disabled (rules re-apply immediately)"
+    },
+    "brightnessTab": {
+      "primaryDisplay": "Primary Display for control",
+      "fixedBrightness": "Enforce Fixed Brightness",
+      "fixedBrightnessDesc": "Prevents Windows from altering brightness on AC/battery or scheme changes",
+      "fixedValue": "Fixed Brightness Level"
+    },
+    "notificationsTab": {
+      "osdEnabled": "Show On-Screen Display (OSD) on scheme changes",
+      "showIcon": "Show icon in OSD",
+      "showSchemeName": "Show scheme name in OSD",
+      "duration": "OSD Duration (seconds)",
+      "opacity": "OSD Opacity"
+    },
+    "automationsTab": {
+      "masterToggle": "Automation Engine Master Switch",
+      "createRule": "New Rule",
+      "noRules": "No automation rules configured.",
+      "priority": "Priority",
+      "exclusive": "Exclusive (blocks lower priority rules)",
+      "enabled": "Enabled",
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "delete": "Delete",
+      "confirmDelete": "Are you sure you want to delete this rule?"
+    },
+    "updatesTab": {
+      "currentVersion": "Current Version",
+      "checkNow": "Check for updates now",
+      "autoCheck": "Check automatically on startup",
+      "autoDownload": "Download updates automatically",
+      "upToDate": "PowerManager is up to date."
+    },
+    "aboutTab": {
+      "version": "Version",
+      "diagnostic": "System Diagnostics",
+      "copyDiagnostic": "Copy Diagnostic Info",
+      "copied": "Copied!",
+      "openLogs": "Open Logs Folder"
+    }
+  },
+  "ruleEditor": {
+    "titleCreate": "Create Automation",
+    "titleEdit": "Edit Automation",
+    "name": "Rule Name",
+    "priority": "Priority Level (0-100)",
+    "priorityHint": "Higher priority rules take precedence over lower ones",
+    "exclusive": "Exclusive Mode (ignore lower priority rules while active)",
+    "when": "WHEN (Triggers - OR)",
+    "conditions": "WHILE (Conditions - AND)",
+    "actions": "THEN (Actions)",
+    "addTrigger": "Add Trigger",
+    "addCondition": "Add Condition",
+    "addAction": "Add Action",
+    "triggers": {
+      "processRunning": "Process is running",
+      "timeWindow": "Time window / Days of week",
+      "acConnected": "Plugged into AC power",
+      "onBattery": "Running on battery",
+      "batteryBelow": "Battery at or below",
+      "batteryAbove": "Battery at or above",
+      "activeSchemeIs": "Active scheme is",
+      "processStarted": "Process starts",
+      "processStopped": "Process stops",
+      "suspend": "System enters sleep",
+      "resume": "System resumes",
+      "appStarted": "PowerManager starts"
+    },
+    "conditionsList": {
+      "powerSource": "Power Source",
+      "batteryPercentage": "Battery Percentage",
+      "activeScheme": "Current Scheme",
+      "processRunning": "Process running",
+      "timeWindow": "Time window"
+    },
+    "actionsList": {
+      "setPowerScheme": "Set Power Scheme",
+      "setBrightness": "Set Brightness",
+      "turnOffDisplay": "Turn Off Display",
+      "showOsd": "Show OSD",
+      "showNotification": "Show System Notification",
+      "launchProgram": "Launch Program"
+    },
+    "days": {
+      "1": "Mon",
+      "2": "Tue",
+      "3": "Wed",
+      "4": "Thu",
+      "5": "Fri",
+      "6": "Sat",
+      "7": "Sun"
+    },
+    "save": "Save Rule",
+    "cancel": "Cancel",
+    "browse": "Browse..."
+  }
+}

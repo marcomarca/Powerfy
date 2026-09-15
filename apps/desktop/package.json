@@ -1,0 +1,32 @@
+{
+  "name": "desktop",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist-electron/main/index.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "vite",
+    "build": "tsc && vite build && bun build src/main/index.ts --outfile dist-electron/main/index.js --target node --external electron && bun build src/preload/index.ts --outfile dist-electron/preload/index.js --target node --external electron",
+    "typecheck": "tsc --noEmit",
+    "package": "electron-builder --config electron-builder.json --win --x64",
+    "package:dir": "electron-builder --config electron-builder.json --dir --win --x64"
+  },
+  "dependencies": {
+    "@power-manager/contracts": "workspace:*",
+    "@power-manager/rule-engine": "workspace:*",
+    "@power-manager/shared": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^34.3.0",
+    "electron-builder": "^25.1.8",
+    "electron-updater": "^6.3.9",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.0"
+  }
+}
