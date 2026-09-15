@@ -23,7 +23,7 @@
   },
   "display": {
     "turnOff": "Apagar pantalla",
-    "turnOffDesc": "Apaga físicamente la salida del monitor sin suspender el equipo"
+    "turnOffDesc": "Oscurece la pantalla por completo sin suspender el equipo ni cerrar la sesión"
   },
   "settings": {
     "title": "Ajustes de Powerfy",

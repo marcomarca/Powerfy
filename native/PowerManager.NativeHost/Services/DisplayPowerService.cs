@@ -14,6 +14,16 @@ public class DisplayPowerService : IDisplayPowerService
     {
         try
         {
+            // Keep system execution state alive (prevent sleep)
+            Kernel32Interop.SetThreadExecutionState(
+                Kernel32Interop.EXECUTION_STATE.ES_CONTINUOUS |
+                Kernel32Interop.EXECUTION_STATE.ES_SYSTEM_REQUIRED |
+                Kernel32Interop.EXECUTION_STATE.ES_AWAYMODE_REQUIRED
+            );
+
+            // Brief pause so user releases mouse button, preventing immediate wake bounce
+            Thread.Sleep(350);
+
             // lParam = 2: power off the display
             var result = User32Interop.SendMessageTimeout(
                 User32Interop.HWND_BROADCAST,

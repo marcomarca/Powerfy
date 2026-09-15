@@ -77,8 +77,8 @@ export function PopupApp() {
 
   const handleTurnOffDisplay = async () => {
     try {
-      await window.powerManager.turnOffDisplay();
       window.powerManager.closePopup();
+      await window.powerManager.turnOffDisplay();
     } catch (err) {
       console.error(err);
     }

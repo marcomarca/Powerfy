@@ -23,7 +23,7 @@
   },
   "display": {
     "turnOff": "Turn off display",
-    "turnOffDesc": "Physically turns off display output without sleeping the PC"
+    "turnOffDesc": "Completely darkens display without sleeping the PC or locking user session"
   },
   "settings": {
     "title": "Powerfy Settings",

@@ -10,6 +10,7 @@ import { SchedulerCoordinator } from "./scheduler/SchedulerCoordinator";
 import { SettingsStore } from "./settings/SettingsStore";
 import { HotkeyManager } from "./shortcuts/HotkeyManager";
 import { TrayManager } from "./tray/TrayManager";
+import { BlackoutWindowManager } from "./windows/BlackoutWindowManager";
 import { OsdWindowManager } from "./windows/OsdWindowManager";
 import { PopupWindowManager } from "./windows/PopupWindowManager";
 import { SettingsWindowManager } from "./windows/SettingsWindowManager";
@@ -32,6 +33,7 @@ class MainApp {
   private popupManager: PopupWindowManager;
   private settingsManager: SettingsWindowManager;
   private osdManager: OsdWindowManager;
+  private blackoutManager: BlackoutWindowManager;
 
   constructor() {
     this.settingsStore = new SettingsStore();
@@ -44,10 +46,11 @@ class MainApp {
     );
     this.startupManager = new StartupManager();
     this.hotkeyManager = new HotkeyManager(this.settingsStore);
-    this.trayManager = new TrayManager(this.settingsStore, this.nativeClient);
+    this.trayManager = new TrayManager(this.settingsStore);
     this.popupManager = new PopupWindowManager();
     this.settingsManager = new SettingsWindowManager();
     this.osdManager = new OsdWindowManager(this.settingsStore);
+    this.blackoutManager = new BlackoutWindowManager(this.nativeClient);
   }
 
   public async start(): Promise<void> {
@@ -79,8 +82,15 @@ class MainApp {
     this.trayManager.on("toggleStartWithWindows", (enabled: boolean) => {
       this.startupManager.applySetting(enabled);
     });
+    this.trayManager.on("turnOffDisplay", async () => {
+      this.popupManager.hide();
+      await this.blackoutManager.activate();
+    });
 
     // 5. Bind Scheme & Hotkey events
+    this.scheduler.on("turnOffDisplay", async () => {
+      await this.blackoutManager.activate();
+    });
     this.scheduler.on("schemeChanged", (schemeId: string) => {
       this.nativeClient.listSchemes().then((schemes) => {
         const active = schemes.find((s) => s.id === schemeId);
@@ -227,7 +237,8 @@ class MainApp {
     });
 
     ipcMain.handle("turnOffDisplay", async () => {
-      return this.nativeClient.turnOffDisplay();
+      this.popupManager.hide();
+      return this.blackoutManager.activate();
     });
 
     ipcMain.handle("updateSettings", async (_event, partial: any) => {
@@ -301,6 +312,7 @@ class MainApp {
 
   public shutdown(): void {
     logger.info("Shutting down PowerManager...");
+    this.blackoutManager.dismiss();
     this.hotkeyManager.destroy();
     this.trayManager.destroy();
     this.popupManager.destroy();

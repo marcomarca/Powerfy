@@ -3,23 +3,20 @@ import { EventEmitter } from "node:events";
 import { getStableColorForGuid } from "@power-manager/shared";
 import { Menu, Tray, app } from "electron";
 import { logger } from "../logging/Logger";
-import type { NativeHostClient } from "../native-host/NativeHostClient";
 import type { SettingsStore } from "../settings/SettingsStore";
 import { TrayIconRenderer } from "./TrayIconRenderer";
 
 export class TrayManager extends EventEmitter {
   private tray: Tray | null = null;
   private settingsStore: SettingsStore;
-  private nativeClient: NativeHostClient;
   private currentSchemeId: string | null = null;
   private batteryPercent: number | null = null;
   private isOnAc = true;
   private isCharging = false;
 
-  constructor(settingsStore: SettingsStore, nativeClient: NativeHostClient) {
+  constructor(settingsStore: SettingsStore) {
     super();
     this.settingsStore = settingsStore;
-    this.nativeClient = nativeClient;
   }
 
   public init(): void {
@@ -123,9 +120,7 @@ export class TrayManager extends EventEmitter {
       {
         label: isEs ? "Apagar pantalla" : "Turn off display",
         click: () => {
-          this.nativeClient.turnOffDisplay().catch((err) => {
-            logger.error(`TurnOffDisplay from tray context menu failed: ${err.message}`);
-          });
+          this.emit("turnOffDisplay");
         },
       },
       {

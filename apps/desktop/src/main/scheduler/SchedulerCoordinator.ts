@@ -183,9 +183,7 @@ export class SchedulerCoordinator extends EventEmitter {
         break;
 
       case "turnOffDisplay":
-        this.nativeClient
-          .turnOffDisplay()
-          .catch((err) => logger.error(`Action turnOffDisplay error: ${err.message}`));
+        this.emit("turnOffDisplay");
         break;
 
       case "showOsd":
