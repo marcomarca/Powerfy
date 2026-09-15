@@ -1,5 +1,8 @@
-import { nativeImage } from "electron";
+import fs from "node:fs";
+import path from "node:path";
+import { app, nativeImage } from "electron";
 import type { NativeImage } from "electron";
+import { logger } from "../logging/Logger";
 
 export interface TrayRenderOptions {
   percentage: number | null;
@@ -11,56 +14,100 @@ export interface TrayRenderOptions {
 }
 
 export class TrayIconRenderer {
-  private static cache = new Map<string, NativeImage>();
+  private static cachedIcons = new Map<string, NativeImage>();
 
   public static render(options: TrayRenderOptions): NativeImage {
     const key = `${options.percentage}_${options.isOnAc}_${options.isCharging}_${options.schemeColor}_${options.style}_${options.showPercentage}`;
-    const cached = this.cache.get(key);
-    if (cached) {
+    const cached = this.cachedIcons.get(key);
+    if (cached && !cached.isEmpty()) {
       return cached;
     }
 
-    const isDesktop = options.percentage === null;
-    const pct = options.percentage !== null ? Math.max(0, Math.min(100, options.percentage)) : 100;
-    const fillWidth = Math.max(1, Math.round((pct / 100) * 14));
-    const schemeColor = options.schemeColor || "#1ed8f5";
-    const bodyColor = options.style === "solid" ? "#ffffff" : "#c9d1dd";
-
-    let svg = "";
-    if (isDesktop) {
-      // Desktop / No Battery: stylized Powerfy energy core
-      svg = `
-        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <!-- Powerfy Desktop Symbol -->
-          <circle cx="16" cy="16" r="11" fill="none" stroke="${bodyColor}" stroke-width="2" />
-          <path d="M 17 6 L 11 17 L 16 17 L 15 26 L 22 15 L 17 15 Z" fill="${schemeColor}" />
-          <!-- Scheme Accent Dot -->
-          <circle cx="24" cy="8" r="3.5" fill="${schemeColor}" stroke="#061b46" stroke-width="1.2" />
-        </svg>
-      `.trim();
-    } else {
-      // Laptop / Battery mode
-      svg = `
-        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <!-- Battery Outer Body -->
-          <rect x="4" y="9" width="22" height="14" rx="3" fill="none" stroke="${bodyColor}" stroke-width="2.2" />
-          <!-- Battery Terminal Tip -->
-          <rect x="27" y="13" width="2" height="6" rx="1" fill="${bodyColor}" />
-          <!-- Battery Fill Level -->
-          <rect x="6.5" y="11.5" width="${fillWidth * 1.2}" height="9" rx="1.5" fill="${options.isCharging ? "#22c55e" : pct <= 20 ? "#ff2636" : schemeColor}" />
-          <!-- Scheme Accent Dot -->
-          <circle cx="24" cy="7" r="4" fill="${schemeColor}" stroke="#061b46" stroke-width="1" />
-          ${
-            options.isCharging
-              ? `<path d="M 15 6 L 11 16 L 15 16 L 13 24 L 19 14 L 15 14 Z" fill="#fbbf24" stroke="#000000" stroke-width="0.8" />`
-              : ""
-          }
-        </svg>
-      `.trim();
+    const iconPath = this.resolveIconPath();
+    if (iconPath) {
+      const img = nativeImage.createFromPath(iconPath);
+      if (!img.isEmpty()) {
+        this.cachedIcons.set(key, img);
+        return img;
+      }
     }
 
-    const img = nativeImage.createFromBuffer(Buffer.from(svg), { scaleFactor: 2.0 });
-    this.cache.set(key, img);
-    return img;
+    // Fallback: Generate a crisp 32x32 RGBA bitmap with Powerfy colors
+    const fallback = this.generateFallbackBitmap(options.schemeColor);
+    this.cachedIcons.set(key, fallback);
+    return fallback;
+  }
+
+  private static resolveIconPath(): string | null {
+    const candidateNames = [
+      "powerfy_tray_icon_32.png",
+      "powerfy_tray_icon.ico",
+      "powerfy_tray_icon_16.png",
+      "powerfy_app_icon_64.png",
+      "powerfy_app_icon.ico",
+    ];
+
+    const baseDirs = [
+      path.join(app.getAppPath(), "resources", "icons"),
+      path.join(app.getAppPath(), "apps", "desktop", "resources", "icons"),
+      path.join(process.cwd(), "resources", "icons"),
+      path.join(process.cwd(), "apps", "desktop", "resources", "icons"),
+      path.join(process.resourcesPath || "", "icons"),
+      path.join(process.resourcesPath || "", "resources", "icons"),
+    ];
+
+    for (const dir of baseDirs) {
+      for (const name of candidateNames) {
+        const fullPath = path.join(dir, name);
+        if (fs.existsSync(fullPath)) {
+          return fullPath;
+        }
+      }
+    }
+
+    logger.warn("No physical branding icon found in search paths, using RGBA bitmap fallback.");
+    return null;
+  }
+
+  private static generateFallbackBitmap(schemeColor: string): NativeImage {
+    const width = 32;
+    const height = 32;
+    const buffer = Buffer.alloc(width * height * 4, 0);
+
+    // Parse schemeColor hex (default #1ED8F5)
+    let r = 30;
+    let g = 216;
+    let b = 245;
+    if (schemeColor.startsWith("#") && schemeColor.length === 7) {
+      r = Number.parseInt(schemeColor.slice(1, 3), 16) || 30;
+      g = Number.parseInt(schemeColor.slice(3, 5), 16) || 216;
+      b = Number.parseInt(schemeColor.slice(5, 7), 16) || 245;
+    }
+
+    // Draw a stylized energy bolt symbol
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const idx = (y * width + x) * 4;
+        const dx = x - 16;
+        const dy = y - 16;
+        const distSq = dx * dx + dy * dy;
+
+        // Outer ring
+        if (distSq >= 100 && distSq <= 169) {
+          buffer[idx] = 201; // Armor gray
+          buffer[idx + 1] = 209;
+          buffer[idx + 2] = 221;
+          buffer[idx + 3] = 255;
+        } else if (distSq < 100) {
+          // Inner core glow
+          buffer[idx] = r;
+          buffer[idx + 1] = g;
+          buffer[idx + 2] = b;
+          buffer[idx + 3] = 255;
+        }
+      }
+    }
+
+    return nativeImage.createFromBitmap(buffer, { width, height });
   }
 }

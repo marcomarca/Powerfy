@@ -27,7 +27,7 @@ export class TrayManager extends EventEmitter {
       percentage: 100,
       isOnAc: true,
       isCharging: false,
-      schemeColor: "#3b82f6",
+      schemeColor: "#1ed8f5",
       style: "outline",
       showPercentage: true,
     });
