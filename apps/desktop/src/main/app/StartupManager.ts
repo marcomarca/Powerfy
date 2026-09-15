@@ -9,12 +9,18 @@ export class StartupManager {
     }
 
     try {
+      // In electron-builder portable apps, process.env.PORTABLE_EXECUTABLE_FILE points to the permanent .exe on disk
+      const targetExePath = process.env.PORTABLE_EXECUTABLE_FILE || process.execPath;
+
       app.setLoginItemSettings({
         openAtLogin: enabled,
         openAsHidden: true,
+        path: targetExePath,
         args: ["--startup"],
       });
-      logger.info(`Updated Windows login item setting: openAtLogin=${enabled}`);
+      logger.info(
+        `Updated Windows login item setting: openAtLogin=${enabled}, targetPath=${targetExePath}`,
+      );
     } catch (err: any) {
       logger.error(`Failed to set login item settings: ${err.message}`);
     }
