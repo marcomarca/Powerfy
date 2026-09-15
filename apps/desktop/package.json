@@ -1,6 +1,8 @@
 {
   "name": "desktop",
   "version": "1.0.0",
+  "description": "Smart and high-performance power scheme and display manager for Windows",
+  "author": "Marco Marca",
   "private": true,
   "type": "module",
   "main": "dist-electron/main/index.js",

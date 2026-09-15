@@ -1,5 +1,5 @@
 {
-  "name": "power-manager-monorepo",
+  "name": "powerfy",
   "version": "1.0.0",
   "private": true,
   "workspaces": ["packages/*", "apps/*"],
@@ -13,7 +13,7 @@
     "lint": "bunx @biomejs/biome check .",
     "format": "bunx @biomejs/biome format --write .",
     "typecheck": "bun --filter \"*\" typecheck",
-    "package": "bun run build && bun --filter desktop package"
+    "package": "bun run build && bun run --cwd apps/desktop package"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
